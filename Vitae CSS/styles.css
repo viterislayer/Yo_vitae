@@ -1,0 +1,199 @@
+/* ---------- Tema claro (por defecto) ---------- */
+:root{
+  --papel:      #EDEFF2;
+  --tinta:      #10161C;
+  --tinta-suave:#5B5548;
+  --linea:      #C9D0D8;
+  --acento:     #52611E;
+  --acento-luz: #E3E6D3;
+  --max: 780px;
+}
+
+/* ---------- Tema oscuro ---------- */
+html[data-tema="oscuro"]{
+  --papel:      #0E1419;
+  --tinta:      #E6EBF0;
+  --tinta-suave:#ABA294;
+  --linea:      #28323C;
+  --acento:     #A9BB6E;
+  --acento-luz: #2B3018;
+}
+
+*{ box-sizing:border-box; margin:0; padding:0; }
+
+body{
+  background: var(--papel);
+  color: var(--tinta);
+  font-family:'Source Serif 4', Georgia, serif;
+  font-size:16px;
+  line-height:1.65;
+  padding:64px 24px 96px;
+  transition: background .25s ease, color .25s ease;
+}
+
+.hoja{ max-width:var(--max); margin:0 auto; }
+
+/* Filo de acento en el borde superior: enmarca la página
+   y repite el azul del resto sin ocupar espacio. */
+body::before{
+  content:''; position:fixed; top:0; left:0; right:0; height:3px;
+  background:var(--acento); z-index:60;
+}
+
+/* Entrada suave al cargar. Solo ocurre una vez: nada se
+   mueve mientras la persona lee. */
+@keyframes entrar{
+  from{ opacity:0; transform:translateY(14px); }
+  to{ opacity:1; transform:none; }
+}
+.cabecera, section{ animation:entrar .5s ease both; }
+.cabecera{ animation-delay:.05s; }
+section:nth-of-type(1){ animation-delay:.14s; }
+section:nth-of-type(2){ animation-delay:.20s; }
+section:nth-of-type(3){ animation-delay:.26s; }
+section:nth-of-type(4){ animation-delay:.32s; }
+section:nth-of-type(5){ animation-delay:.38s; }
+
+/* ---------- Interruptores ---------- */
+.ajustes{
+  position:fixed; top:18px; right:18px; z-index:50;
+  display:flex; gap:8px;
+  background:var(--papel); padding:6px; border-radius:8px;
+  box-shadow:0 4px 16px rgba(0,0,0,.14);
+}
+.ajustes button{
+  font-family:'JetBrains Mono', monospace; font-size:.72rem; letter-spacing:.08em;
+  background:transparent; color:var(--tinta-suave);
+  border:1px solid var(--linea); border-radius:3px;
+  padding:6px 11px; cursor:pointer;
+  transition: color .18s ease, border-color .18s ease;
+}
+.ajustes button:hover{ color:var(--acento); border-color:var(--acento); }
+
+/* ---------- Encabezado ---------- */
+.cabecera{
+  display:flex; flex-wrap:wrap; align-items:flex-end;
+  justify-content:space-between; gap:24px;
+  padding-bottom:28px; border-bottom:2px solid var(--tinta);
+}
+.identidad{ display:flex; align-items:center; gap:20px; }
+.foto{
+  width:86px; height:104px; flex-shrink:0; display:block;
+  border-radius:6px; overflow:hidden;
+  background:var(--acento-luz) center 20% / cover no-repeat url('WhatsApp\ Image\ 2026-08-19\ at\ 3.38.22\ PM.jpeg');
+}
+h1{
+  font-family:'Bricolage Grotesque', system-ui, sans-serif;
+  font-weight:800; font-size:clamp(2.4rem, 6vw, 3.4rem);
+  letter-spacing:-.03em; line-height:1.05;
+}
+.rol{
+  font-family:'JetBrains Mono', monospace;
+  font-size:.78rem; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--acento); margin-top:10px;
+}
+.contacto{ display:flex; flex-direction:column; align-items:flex-end; gap:12px; }
+
+/* ---------- Secciones ---------- */
+section{ margin-top:48px; }
+h2{
+  font-family:'JetBrains Mono', monospace;
+  font-size:.75rem; font-weight:500; letter-spacing:.18em; text-transform:uppercase;
+  color:var(--tinta-suave); padding-bottom:8px; margin-bottom:20px;
+  border-bottom:1px solid var(--linea);
+}
+p + p{ margin-top:14px; }
+
+/* ---------- Tecnologías ---------- */
+.grupo{ display:flex; gap:16px; padding:10px 0; border-bottom:1px dotted var(--linea); flex-wrap:wrap; }
+.grupo:last-child{ border-bottom:none; }
+.grupo dt{
+  font-family:'JetBrains Mono', monospace; font-size:.75rem;
+  text-transform:uppercase; letter-spacing:.08em;
+  color:var(--tinta-suave); min-width:130px; padding-top:3px;
+}
+.grupo dd{ display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
+.chip{
+  font-family:'JetBrains Mono', monospace; font-size:.78rem;
+  background:var(--acento-luz); color:var(--acento);
+  padding:3px 9px; border-radius:3px;
+  display:inline-flex; align-items:center; gap:6px;
+}
+
+/* ---------- Proyectos: la marca de la página ----------
+   Las líneas verticales representan hilos ejecutándose
+   en paralelo. Es un guiño al trabajo con concurrencia. */
+.proyecto{ position:relative; padding:4px 0 4px 30px; margin-bottom:32px; }
+.proyecto::before{
+  content:''; position:absolute; left:0; top:8px; bottom:4px;
+  border-left:2px solid var(--linea);
+}
+.proyecto h3{
+  font-family:'Bricolage Grotesque', sans-serif;
+  font-size:1.22rem; font-weight:600; letter-spacing:-.01em;
+}
+.proyecto h3 a{ color:var(--tinta); text-decoration:none; border-bottom:2px solid var(--acento-luz); }
+.proyecto h3 a:hover{ border-color:var(--acento); }
+.meta{
+  font-family:'JetBrains Mono', monospace; font-size:.74rem;
+  color:var(--tinta-suave); letter-spacing:.06em; margin:3px 0 9px;
+}
+.proyecto ul{ list-style:none; margin-top:9px; }
+.proyecto li{ position:relative; padding-left:16px; font-size:.95rem; }
+.proyecto li::before{ content:'—'; position:absolute; left:0; color:var(--acento); }
+
+/* ---------- Formación ---------- */
+.fila{ display:flex; justify-content:space-between; gap:20px; flex-wrap:wrap; padding:12px 0; border-bottom:1px dotted var(--linea); }
+.fila:last-child{ border-bottom:none; }
+.fila .fecha{ font-family:'JetBrains Mono', monospace; font-size:.76rem; color:var(--tinta-suave); white-space:nowrap; }
+.fila strong{ font-weight:600; }
+.fila span.detalle{ display:block; font-size:.9rem; color:var(--tinta-suave); }
+
+/* ---------- Botones de contacto ---------- */
+.acciones{ display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end; }
+.lugar{ font-family:'JetBrains Mono', monospace; font-size:.76rem;
+  letter-spacing:.1em; text-transform:uppercase; color:var(--tinta-suave); margin-top:6px; }
+.solo-impresion{ display:none; }
+.boton{
+  font-family:'JetBrains Mono', monospace; font-size:.8rem; letter-spacing:.05em;
+  text-decoration:none; padding:11px 20px; border-radius:3px;
+  background:var(--tinta); color:var(--papel);
+  transition:background .18s ease;
+}
+.boton:hover{ background:var(--acento); color:#fff; }
+.boton.linea{ background:transparent; color:var(--tinta); border:1px solid var(--tinta); }
+.boton.linea:hover{ background:var(--tinta); color:var(--papel); }
+
+/* El color del texto se fija desde .acciones para que ninguna
+   regla de enlaces del contacto lo tape */
+.acciones .boton{ color:var(--papel); }
+.acciones .boton.linea{ color:var(--tinta); }
+.acciones .boton:hover{ color:#fff; }
+.acciones .boton.linea:hover{ color:var(--papel); }
+
+:focus-visible{ outline:2px solid var(--acento); outline-offset:3px; }
+
+/* ---------- Impresión: Ctrl+P para exportar a PDF ---------- */
+@media print{
+  body{ background:#fff; color:#000; padding:0; font-size:11.5pt; }
+  body::before{ display:none; }
+  .cabecera, section{ animation:none; opacity:1; transform:none; }
+  .ajustes, .acciones, .lugar{ display:none; }
+  .solo-impresion{ display:block !important; font-family:'JetBrains Mono', monospace; font-size:9pt; }
+  section{ margin-top:26px; page-break-inside:avoid; }
+  .proyecto{ page-break-inside:avoid; }
+  a{ color:#000 !important; }
+}
+
+@media (max-width:620px){
+  body{ padding:36px 18px 64px; }
+  .cabecera{ flex-direction:column; align-items:flex-start; }
+  .contacto{ align-items:flex-start; }
+  .acciones{ justify-content:flex-start; }
+  .ajustes{ justify-content:flex-start; }
+  .grupo dt{ min-width:100%; }
+}
+@media (prefers-reduced-motion:reduce){
+  *{ transition:none !important; }
+  .cabecera, section{ animation:none !important; opacity:1; transform:none; }
+}
